@@ -1,0 +1,1178 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    INC
+
+Grammar
+
+Rule 0     S' -> block
+Rule 1     block -> statement SEMI block
+Rule 2     block -> statement SEMI
+Rule 3     block -> COMMENTLINE
+Rule 4     block -> COMMENTBLOCK
+Rule 5     statement -> NAME EQUALS expression
+Rule 6     statement -> PRINT LPAREN expression RPAREN
+Rule 7     statement -> NAME PLUS PLUS
+Rule 8     statement -> NAME MINUS MINUS
+Rule 9     statement -> NAME PLUS EQUALS expression
+Rule 10    statement -> NAME MINUS EQUALS expression
+Rule 11    expression -> expression INF expression
+Rule 12    expression -> expression SUP expression
+Rule 13    expression -> expression INFEQ expression
+Rule 14    expression -> expression SUPEQ expression
+Rule 15    expression -> expression PLUS expression
+Rule 16    expression -> expression TIMES expression
+Rule 17    expression -> expression MINUS expression
+Rule 18    expression -> expression DIVIDE expression
+Rule 19    expression -> expression AND expression
+Rule 20    expression -> expression OR expression
+Rule 21    expression -> LPAREN expression RPAREN
+Rule 22    expression -> NUMBER
+Rule 23    expression -> STRING
+Rule 24    expression -> NAME
+
+Terminals, with rules where they appear
+
+AND                  : 19
+COMMENTBLOCK         : 4
+COMMENTLINE          : 3
+DIVIDE               : 18
+EQUALS               : 5 9 10
+INC                  : 
+INF                  : 11
+INFEQ                : 13
+LPAREN               : 6 21
+MINUS                : 8 8 10 17
+NAME                 : 5 7 8 9 10 24
+NUMBER               : 22
+OR                   : 20
+PLUS                 : 7 7 9 15
+PRINT                : 6
+RPAREN               : 6 21
+SEMI                 : 1 2
+STRING               : 23
+SUP                  : 12
+SUPEQ                : 14
+TIMES                : 16
+error                : 
+
+Nonterminals, with rules where they appear
+
+block                : 1 0
+expression           : 5 6 9 10 11 11 12 12 13 13 14 14 15 15 16 16 17 17 18 18 19 19 20 20 21
+statement            : 1 2
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . block
+    (1) block -> . statement SEMI block
+    (2) block -> . statement SEMI
+    (3) block -> . COMMENTLINE
+    (4) block -> . COMMENTBLOCK
+    (5) statement -> . NAME EQUALS expression
+    (6) statement -> . PRINT LPAREN expression RPAREN
+    (7) statement -> . NAME PLUS PLUS
+    (8) statement -> . NAME MINUS MINUS
+    (9) statement -> . NAME PLUS EQUALS expression
+    (10) statement -> . NAME MINUS EQUALS expression
+
+    COMMENTLINE     shift and go to state 3
+    COMMENTBLOCK    shift and go to state 4
+    NAME            shift and go to state 5
+    PRINT           shift and go to state 6
+
+    block                          shift and go to state 1
+    statement                      shift and go to state 2
+
+state 1
+
+    (0) S' -> block .
+
+
+
+state 2
+
+    (1) block -> statement . SEMI block
+    (2) block -> statement . SEMI
+
+    SEMI            shift and go to state 7
+
+
+state 3
+
+    (3) block -> COMMENTLINE .
+
+    $end            reduce using rule 3 (block -> COMMENTLINE .)
+
+
+state 4
+
+    (4) block -> COMMENTBLOCK .
+
+    $end            reduce using rule 4 (block -> COMMENTBLOCK .)
+
+
+state 5
+
+    (5) statement -> NAME . EQUALS expression
+    (7) statement -> NAME . PLUS PLUS
+    (8) statement -> NAME . MINUS MINUS
+    (9) statement -> NAME . PLUS EQUALS expression
+    (10) statement -> NAME . MINUS EQUALS expression
+
+    EQUALS          shift and go to state 8
+    PLUS            shift and go to state 9
+    MINUS           shift and go to state 10
+
+
+state 6
+
+    (6) statement -> PRINT . LPAREN expression RPAREN
+
+    LPAREN          shift and go to state 11
+
+
+state 7
+
+    (1) block -> statement SEMI . block
+    (2) block -> statement SEMI .
+    (1) block -> . statement SEMI block
+    (2) block -> . statement SEMI
+    (3) block -> . COMMENTLINE
+    (4) block -> . COMMENTBLOCK
+    (5) statement -> . NAME EQUALS expression
+    (6) statement -> . PRINT LPAREN expression RPAREN
+    (7) statement -> . NAME PLUS PLUS
+    (8) statement -> . NAME MINUS MINUS
+    (9) statement -> . NAME PLUS EQUALS expression
+    (10) statement -> . NAME MINUS EQUALS expression
+
+    $end            reduce using rule 2 (block -> statement SEMI .)
+    COMMENTLINE     shift and go to state 3
+    COMMENTBLOCK    shift and go to state 4
+    NAME            shift and go to state 5
+    PRINT           shift and go to state 6
+
+    statement                      shift and go to state 2
+    block                          shift and go to state 12
+
+state 8
+
+    (5) statement -> NAME EQUALS . expression
+    (11) expression -> . expression INF expression
+    (12) expression -> . expression SUP expression
+    (13) expression -> . expression INFEQ expression
+    (14) expression -> . expression SUPEQ expression
+    (15) expression -> . expression PLUS expression
+    (16) expression -> . expression TIMES expression
+    (17) expression -> . expression MINUS expression
+    (18) expression -> . expression DIVIDE expression
+    (19) expression -> . expression AND expression
+    (20) expression -> . expression OR expression
+    (21) expression -> . LPAREN expression RPAREN
+    (22) expression -> . NUMBER
+    (23) expression -> . STRING
+    (24) expression -> . NAME
+
+    LPAREN          shift and go to state 15
+    NUMBER          shift and go to state 16
+    STRING          shift and go to state 17
+    NAME            shift and go to state 13
+
+    expression                     shift and go to state 14
+
+state 9
+
+    (7) statement -> NAME PLUS . PLUS
+    (9) statement -> NAME PLUS . EQUALS expression
+
+    PLUS            shift and go to state 18
+    EQUALS          shift and go to state 19
+
+
+state 10
+
+    (8) statement -> NAME MINUS . MINUS
+    (10) statement -> NAME MINUS . EQUALS expression
+
+    MINUS           shift and go to state 20
+    EQUALS          shift and go to state 21
+
+
+state 11
+
+    (6) statement -> PRINT LPAREN . expression RPAREN
+    (11) expression -> . expression INF expression
+    (12) expression -> . expression SUP expression
+    (13) expression -> . expression INFEQ expression
+    (14) expression -> . expression SUPEQ expression
+    (15) expression -> . expression PLUS expression
+    (16) expression -> . expression TIMES expression
+    (17) expression -> . expression MINUS expression
+    (18) expression -> . expression DIVIDE expression
+    (19) expression -> . expression AND expression
+    (20) expression -> . expression OR expression
+    (21) expression -> . LPAREN expression RPAREN
+    (22) expression -> . NUMBER
+    (23) expression -> . STRING
+    (24) expression -> . NAME
+
+    LPAREN          shift and go to state 15
+    NUMBER          shift and go to state 16
+    STRING          shift and go to state 17
+    NAME            shift and go to state 13
+
+    expression                     shift and go to state 22
+
+state 12
+
+    (1) block -> statement SEMI block .
+
+    $end            reduce using rule 1 (block -> statement SEMI block .)
+
+
+state 13
+
+    (24) expression -> NAME .
+
+    INF             reduce using rule 24 (expression -> NAME .)
+    SUP             reduce using rule 24 (expression -> NAME .)
+    INFEQ           reduce using rule 24 (expression -> NAME .)
+    SUPEQ           reduce using rule 24 (expression -> NAME .)
+    PLUS            reduce using rule 24 (expression -> NAME .)
+    TIMES           reduce using rule 24 (expression -> NAME .)
+    MINUS           reduce using rule 24 (expression -> NAME .)
+    DIVIDE          reduce using rule 24 (expression -> NAME .)
+    AND             reduce using rule 24 (expression -> NAME .)
+    OR              reduce using rule 24 (expression -> NAME .)
+    SEMI            reduce using rule 24 (expression -> NAME .)
+    RPAREN          reduce using rule 24 (expression -> NAME .)
+
+
+state 14
+
+    (5) statement -> NAME EQUALS expression .
+    (11) expression -> expression . INF expression
+    (12) expression -> expression . SUP expression
+    (13) expression -> expression . INFEQ expression
+    (14) expression -> expression . SUPEQ expression
+    (15) expression -> expression . PLUS expression
+    (16) expression -> expression . TIMES expression
+    (17) expression -> expression . MINUS expression
+    (18) expression -> expression . DIVIDE expression
+    (19) expression -> expression . AND expression
+    (20) expression -> expression . OR expression
+
+    SEMI            reduce using rule 5 (statement -> NAME EQUALS expression .)
+    INF             shift and go to state 23
+    SUP             shift and go to state 24
+    INFEQ           shift and go to state 25
+    SUPEQ           shift and go to state 26
+    PLUS            shift and go to state 27
+    TIMES           shift and go to state 28
+    MINUS           shift and go to state 29
+    DIVIDE          shift and go to state 30
+    AND             shift and go to state 31
+    OR              shift and go to state 32
+
+
+state 15
+
+    (21) expression -> LPAREN . expression RPAREN
+    (11) expression -> . expression INF expression
+    (12) expression -> . expression SUP expression
+    (13) expression -> . expression INFEQ expression
+    (14) expression -> . expression SUPEQ expression
+    (15) expression -> . expression PLUS expression
+    (16) expression -> . expression TIMES expression
+    (17) expression -> . expression MINUS expression
+    (18) expression -> . expression DIVIDE expression
+    (19) expression -> . expression AND expression
+    (20) expression -> . expression OR expression
+    (21) expression -> . LPAREN expression RPAREN
+    (22) expression -> . NUMBER
+    (23) expression -> . STRING
+    (24) expression -> . NAME
+
+    LPAREN          shift and go to state 15
+    NUMBER          shift and go to state 16
+    STRING          shift and go to state 17
+    NAME            shift and go to state 13
+
+    expression                     shift and go to state 33
+
+state 16
+
+    (22) expression -> NUMBER .
+
+    INF             reduce using rule 22 (expression -> NUMBER .)
+    SUP             reduce using rule 22 (expression -> NUMBER .)
+    INFEQ           reduce using rule 22 (expression -> NUMBER .)
+    SUPEQ           reduce using rule 22 (expression -> NUMBER .)
+    PLUS            reduce using rule 22 (expression -> NUMBER .)
+    TIMES           reduce using rule 22 (expression -> NUMBER .)
+    MINUS           reduce using rule 22 (expression -> NUMBER .)
+    DIVIDE          reduce using rule 22 (expression -> NUMBER .)
+    AND             reduce using rule 22 (expression -> NUMBER .)
+    OR              reduce using rule 22 (expression -> NUMBER .)
+    SEMI            reduce using rule 22 (expression -> NUMBER .)
+    RPAREN          reduce using rule 22 (expression -> NUMBER .)
+
+
+state 17
+
+    (23) expression -> STRING .
+
+    INF             reduce using rule 23 (expression -> STRING .)
+    SUP             reduce using rule 23 (expression -> STRING .)
+    INFEQ           reduce using rule 23 (expression -> STRING .)
+    SUPEQ           reduce using rule 23 (expression -> STRING .)
+    PLUS            reduce using rule 23 (expression -> STRING .)
+    TIMES           reduce using rule 23 (expression -> STRING .)
+    MINUS           reduce using rule 23 (expression -> STRING .)
+    DIVIDE          reduce using rule 23 (expression -> STRING .)
+    AND             reduce using rule 23 (expression -> STRING .)
+    OR              reduce using rule 23 (expression -> STRING .)
+    SEMI            reduce using rule 23 (expression -> STRING .)
+    RPAREN          reduce using rule 23 (expression -> STRING .)
+
+
+state 18
+
+    (7) statement -> NAME PLUS PLUS .
+
+    SEMI            reduce using rule 7 (statement -> NAME PLUS PLUS .)
+
+
+state 19
+
+    (9) statement -> NAME PLUS EQUALS . expression
+    (11) expression -> . expression INF expression
+    (12) expression -> . expression SUP expression
+    (13) expression -> . expression INFEQ expression
+    (14) expression -> . expression SUPEQ expression
+    (15) expression -> . expression PLUS expression
+    (16) expression -> . expression TIMES expression
+    (17) expression -> . expression MINUS expression
+    (18) expression -> . expression DIVIDE expression
+    (19) expression -> . expression AND expression
+    (20) expression -> . expression OR expression
+    (21) expression -> . LPAREN expression RPAREN
+    (22) expression -> . NUMBER
+    (23) expression -> . STRING
+    (24) expression -> . NAME
+
+    LPAREN          shift and go to state 15
+    NUMBER          shift and go to state 16
+    STRING          shift and go to state 17
+    NAME            shift and go to state 13
+
+    expression                     shift and go to state 34
+
+state 20
+
+    (8) statement -> NAME MINUS MINUS .
+
+    SEMI            reduce using rule 8 (statement -> NAME MINUS MINUS .)
+
+
+state 21
+
+    (10) statement -> NAME MINUS EQUALS . expression
+    (11) expression -> . expression INF expression
+    (12) expression -> . expression SUP expression
+    (13) expression -> . expression INFEQ expression
+    (14) expression -> . expression SUPEQ expression
+    (15) expression -> . expression PLUS expression
+    (16) expression -> . expression TIMES expression
+    (17) expression -> . expression MINUS expression
+    (18) expression -> . expression DIVIDE expression
+    (19) expression -> . expression AND expression
+    (20) expression -> . expression OR expression
+    (21) expression -> . LPAREN expression RPAREN
+    (22) expression -> . NUMBER
+    (23) expression -> . STRING
+    (24) expression -> . NAME
+
+    LPAREN          shift and go to state 15
+    NUMBER          shift and go to state 16
+    STRING          shift and go to state 17
+    NAME            shift and go to state 13
+
+    expression                     shift and go to state 35
+
+state 22
+
+    (6) statement -> PRINT LPAREN expression . RPAREN
+    (11) expression -> expression . INF expression
+    (12) expression -> expression . SUP expression
+    (13) expression -> expression . INFEQ expression
+    (14) expression -> expression . SUPEQ expression
+    (15) expression -> expression . PLUS expression
+    (16) expression -> expression . TIMES expression
+    (17) expression -> expression . MINUS expression
+    (18) expression -> expression . DIVIDE expression
+    (19) expression -> expression . AND expression
+    (20) expression -> expression . OR expression
+
+    RPAREN          shift and go to state 36
+    INF             shift and go to state 23
+    SUP             shift and go to state 24
+    INFEQ           shift and go to state 25
+    SUPEQ           shift and go to state 26
+    PLUS            shift and go to state 27
+    TIMES           shift and go to state 28
+    MINUS           shift and go to state 29
+    DIVIDE          shift and go to state 30
+    AND             shift and go to state 31
+    OR              shift and go to state 32
+
+
+state 23
+
+    (11) expression -> expression INF . expression
+    (11) expression -> . expression INF expression
+    (12) expression -> . expression SUP expression
+    (13) expression -> . expression INFEQ expression
+    (14) expression -> . expression SUPEQ expression
+    (15) expression -> . expression PLUS expression
+    (16) expression -> . expression TIMES expression
+    (17) expression -> . expression MINUS expression
+    (18) expression -> . expression DIVIDE expression
+    (19) expression -> . expression AND expression
+    (20) expression -> . expression OR expression
+    (21) expression -> . LPAREN expression RPAREN
+    (22) expression -> . NUMBER
+    (23) expression -> . STRING
+    (24) expression -> . NAME
+
+    LPAREN          shift and go to state 15
+    NUMBER          shift and go to state 16
+    STRING          shift and go to state 17
+    NAME            shift and go to state 13
+
+    expression                     shift and go to state 37
+
+state 24
+
+    (12) expression -> expression SUP . expression
+    (11) expression -> . expression INF expression
+    (12) expression -> . expression SUP expression
+    (13) expression -> . expression INFEQ expression
+    (14) expression -> . expression SUPEQ expression
+    (15) expression -> . expression PLUS expression
+    (16) expression -> . expression TIMES expression
+    (17) expression -> . expression MINUS expression
+    (18) expression -> . expression DIVIDE expression
+    (19) expression -> . expression AND expression
+    (20) expression -> . expression OR expression
+    (21) expression -> . LPAREN expression RPAREN
+    (22) expression -> . NUMBER
+    (23) expression -> . STRING
+    (24) expression -> . NAME
+
+    LPAREN          shift and go to state 15
+    NUMBER          shift and go to state 16
+    STRING          shift and go to state 17
+    NAME            shift and go to state 13
+
+    expression                     shift and go to state 38
+
+state 25
+
+    (13) expression -> expression INFEQ . expression
+    (11) expression -> . expression INF expression
+    (12) expression -> . expression SUP expression
+    (13) expression -> . expression INFEQ expression
+    (14) expression -> . expression SUPEQ expression
+    (15) expression -> . expression PLUS expression
+    (16) expression -> . expression TIMES expression
+    (17) expression -> . expression MINUS expression
+    (18) expression -> . expression DIVIDE expression
+    (19) expression -> . expression AND expression
+    (20) expression -> . expression OR expression
+    (21) expression -> . LPAREN expression RPAREN
+    (22) expression -> . NUMBER
+    (23) expression -> . STRING
+    (24) expression -> . NAME
+
+    LPAREN          shift and go to state 15
+    NUMBER          shift and go to state 16
+    STRING          shift and go to state 17
+    NAME            shift and go to state 13
+
+    expression                     shift and go to state 39
+
+state 26
+
+    (14) expression -> expression SUPEQ . expression
+    (11) expression -> . expression INF expression
+    (12) expression -> . expression SUP expression
+    (13) expression -> . expression INFEQ expression
+    (14) expression -> . expression SUPEQ expression
+    (15) expression -> . expression PLUS expression
+    (16) expression -> . expression TIMES expression
+    (17) expression -> . expression MINUS expression
+    (18) expression -> . expression DIVIDE expression
+    (19) expression -> . expression AND expression
+    (20) expression -> . expression OR expression
+    (21) expression -> . LPAREN expression RPAREN
+    (22) expression -> . NUMBER
+    (23) expression -> . STRING
+    (24) expression -> . NAME
+
+    LPAREN          shift and go to state 15
+    NUMBER          shift and go to state 16
+    STRING          shift and go to state 17
+    NAME            shift and go to state 13
+
+    expression                     shift and go to state 40
+
+state 27
+
+    (15) expression -> expression PLUS . expression
+    (11) expression -> . expression INF expression
+    (12) expression -> . expression SUP expression
+    (13) expression -> . expression INFEQ expression
+    (14) expression -> . expression SUPEQ expression
+    (15) expression -> . expression PLUS expression
+    (16) expression -> . expression TIMES expression
+    (17) expression -> . expression MINUS expression
+    (18) expression -> . expression DIVIDE expression
+    (19) expression -> . expression AND expression
+    (20) expression -> . expression OR expression
+    (21) expression -> . LPAREN expression RPAREN
+    (22) expression -> . NUMBER
+    (23) expression -> . STRING
+    (24) expression -> . NAME
+
+    LPAREN          shift and go to state 15
+    NUMBER          shift and go to state 16
+    STRING          shift and go to state 17
+    NAME            shift and go to state 13
+
+    expression                     shift and go to state 41
+
+state 28
+
+    (16) expression -> expression TIMES . expression
+    (11) expression -> . expression INF expression
+    (12) expression -> . expression SUP expression
+    (13) expression -> . expression INFEQ expression
+    (14) expression -> . expression SUPEQ expression
+    (15) expression -> . expression PLUS expression
+    (16) expression -> . expression TIMES expression
+    (17) expression -> . expression MINUS expression
+    (18) expression -> . expression DIVIDE expression
+    (19) expression -> . expression AND expression
+    (20) expression -> . expression OR expression
+    (21) expression -> . LPAREN expression RPAREN
+    (22) expression -> . NUMBER
+    (23) expression -> . STRING
+    (24) expression -> . NAME
+
+    LPAREN          shift and go to state 15
+    NUMBER          shift and go to state 16
+    STRING          shift and go to state 17
+    NAME            shift and go to state 13
+
+    expression                     shift and go to state 42
+
+state 29
+
+    (17) expression -> expression MINUS . expression
+    (11) expression -> . expression INF expression
+    (12) expression -> . expression SUP expression
+    (13) expression -> . expression INFEQ expression
+    (14) expression -> . expression SUPEQ expression
+    (15) expression -> . expression PLUS expression
+    (16) expression -> . expression TIMES expression
+    (17) expression -> . expression MINUS expression
+    (18) expression -> . expression DIVIDE expression
+    (19) expression -> . expression AND expression
+    (20) expression -> . expression OR expression
+    (21) expression -> . LPAREN expression RPAREN
+    (22) expression -> . NUMBER
+    (23) expression -> . STRING
+    (24) expression -> . NAME
+
+    LPAREN          shift and go to state 15
+    NUMBER          shift and go to state 16
+    STRING          shift and go to state 17
+    NAME            shift and go to state 13
+
+    expression                     shift and go to state 43
+
+state 30
+
+    (18) expression -> expression DIVIDE . expression
+    (11) expression -> . expression INF expression
+    (12) expression -> . expression SUP expression
+    (13) expression -> . expression INFEQ expression
+    (14) expression -> . expression SUPEQ expression
+    (15) expression -> . expression PLUS expression
+    (16) expression -> . expression TIMES expression
+    (17) expression -> . expression MINUS expression
+    (18) expression -> . expression DIVIDE expression
+    (19) expression -> . expression AND expression
+    (20) expression -> . expression OR expression
+    (21) expression -> . LPAREN expression RPAREN
+    (22) expression -> . NUMBER
+    (23) expression -> . STRING
+    (24) expression -> . NAME
+
+    LPAREN          shift and go to state 15
+    NUMBER          shift and go to state 16
+    STRING          shift and go to state 17
+    NAME            shift and go to state 13
+
+    expression                     shift and go to state 44
+
+state 31
+
+    (19) expression -> expression AND . expression
+    (11) expression -> . expression INF expression
+    (12) expression -> . expression SUP expression
+    (13) expression -> . expression INFEQ expression
+    (14) expression -> . expression SUPEQ expression
+    (15) expression -> . expression PLUS expression
+    (16) expression -> . expression TIMES expression
+    (17) expression -> . expression MINUS expression
+    (18) expression -> . expression DIVIDE expression
+    (19) expression -> . expression AND expression
+    (20) expression -> . expression OR expression
+    (21) expression -> . LPAREN expression RPAREN
+    (22) expression -> . NUMBER
+    (23) expression -> . STRING
+    (24) expression -> . NAME
+
+    LPAREN          shift and go to state 15
+    NUMBER          shift and go to state 16
+    STRING          shift and go to state 17
+    NAME            shift and go to state 13
+
+    expression                     shift and go to state 45
+
+state 32
+
+    (20) expression -> expression OR . expression
+    (11) expression -> . expression INF expression
+    (12) expression -> . expression SUP expression
+    (13) expression -> . expression INFEQ expression
+    (14) expression -> . expression SUPEQ expression
+    (15) expression -> . expression PLUS expression
+    (16) expression -> . expression TIMES expression
+    (17) expression -> . expression MINUS expression
+    (18) expression -> . expression DIVIDE expression
+    (19) expression -> . expression AND expression
+    (20) expression -> . expression OR expression
+    (21) expression -> . LPAREN expression RPAREN
+    (22) expression -> . NUMBER
+    (23) expression -> . STRING
+    (24) expression -> . NAME
+
+    LPAREN          shift and go to state 15
+    NUMBER          shift and go to state 16
+    STRING          shift and go to state 17
+    NAME            shift and go to state 13
+
+    expression                     shift and go to state 46
+
+state 33
+
+    (21) expression -> LPAREN expression . RPAREN
+    (11) expression -> expression . INF expression
+    (12) expression -> expression . SUP expression
+    (13) expression -> expression . INFEQ expression
+    (14) expression -> expression . SUPEQ expression
+    (15) expression -> expression . PLUS expression
+    (16) expression -> expression . TIMES expression
+    (17) expression -> expression . MINUS expression
+    (18) expression -> expression . DIVIDE expression
+    (19) expression -> expression . AND expression
+    (20) expression -> expression . OR expression
+
+    RPAREN          shift and go to state 47
+    INF             shift and go to state 23
+    SUP             shift and go to state 24
+    INFEQ           shift and go to state 25
+    SUPEQ           shift and go to state 26
+    PLUS            shift and go to state 27
+    TIMES           shift and go to state 28
+    MINUS           shift and go to state 29
+    DIVIDE          shift and go to state 30
+    AND             shift and go to state 31
+    OR              shift and go to state 32
+
+
+state 34
+
+    (9) statement -> NAME PLUS EQUALS expression .
+    (11) expression -> expression . INF expression
+    (12) expression -> expression . SUP expression
+    (13) expression -> expression . INFEQ expression
+    (14) expression -> expression . SUPEQ expression
+    (15) expression -> expression . PLUS expression
+    (16) expression -> expression . TIMES expression
+    (17) expression -> expression . MINUS expression
+    (18) expression -> expression . DIVIDE expression
+    (19) expression -> expression . AND expression
+    (20) expression -> expression . OR expression
+
+    SEMI            reduce using rule 9 (statement -> NAME PLUS EQUALS expression .)
+    INF             shift and go to state 23
+    SUP             shift and go to state 24
+    INFEQ           shift and go to state 25
+    SUPEQ           shift and go to state 26
+    PLUS            shift and go to state 27
+    TIMES           shift and go to state 28
+    MINUS           shift and go to state 29
+    DIVIDE          shift and go to state 30
+    AND             shift and go to state 31
+    OR              shift and go to state 32
+
+
+state 35
+
+    (10) statement -> NAME MINUS EQUALS expression .
+    (11) expression -> expression . INF expression
+    (12) expression -> expression . SUP expression
+    (13) expression -> expression . INFEQ expression
+    (14) expression -> expression . SUPEQ expression
+    (15) expression -> expression . PLUS expression
+    (16) expression -> expression . TIMES expression
+    (17) expression -> expression . MINUS expression
+    (18) expression -> expression . DIVIDE expression
+    (19) expression -> expression . AND expression
+    (20) expression -> expression . OR expression
+
+    SEMI            reduce using rule 10 (statement -> NAME MINUS EQUALS expression .)
+    INF             shift and go to state 23
+    SUP             shift and go to state 24
+    INFEQ           shift and go to state 25
+    SUPEQ           shift and go to state 26
+    PLUS            shift and go to state 27
+    TIMES           shift and go to state 28
+    MINUS           shift and go to state 29
+    DIVIDE          shift and go to state 30
+    AND             shift and go to state 31
+    OR              shift and go to state 32
+
+
+state 36
+
+    (6) statement -> PRINT LPAREN expression RPAREN .
+
+    SEMI            reduce using rule 6 (statement -> PRINT LPAREN expression RPAREN .)
+
+
+state 37
+
+    (11) expression -> expression INF expression .
+    (11) expression -> expression . INF expression
+    (12) expression -> expression . SUP expression
+    (13) expression -> expression . INFEQ expression
+    (14) expression -> expression . SUPEQ expression
+    (15) expression -> expression . PLUS expression
+    (16) expression -> expression . TIMES expression
+    (17) expression -> expression . MINUS expression
+    (18) expression -> expression . DIVIDE expression
+    (19) expression -> expression . AND expression
+    (20) expression -> expression . OR expression
+
+    INF             reduce using rule 11 (expression -> expression INF expression .)
+    SUP             reduce using rule 11 (expression -> expression INF expression .)
+    INFEQ           reduce using rule 11 (expression -> expression INF expression .)
+    SUPEQ           reduce using rule 11 (expression -> expression INF expression .)
+    AND             reduce using rule 11 (expression -> expression INF expression .)
+    OR              reduce using rule 11 (expression -> expression INF expression .)
+    SEMI            reduce using rule 11 (expression -> expression INF expression .)
+    RPAREN          reduce using rule 11 (expression -> expression INF expression .)
+    PLUS            shift and go to state 27
+    TIMES           shift and go to state 28
+    MINUS           shift and go to state 29
+    DIVIDE          shift and go to state 30
+
+  ! PLUS            [ reduce using rule 11 (expression -> expression INF expression .) ]
+  ! TIMES           [ reduce using rule 11 (expression -> expression INF expression .) ]
+  ! MINUS           [ reduce using rule 11 (expression -> expression INF expression .) ]
+  ! DIVIDE          [ reduce using rule 11 (expression -> expression INF expression .) ]
+  ! INF             [ shift and go to state 23 ]
+  ! SUP             [ shift and go to state 24 ]
+  ! INFEQ           [ shift and go to state 25 ]
+  ! SUPEQ           [ shift and go to state 26 ]
+  ! AND             [ shift and go to state 31 ]
+  ! OR              [ shift and go to state 32 ]
+
+
+state 38
+
+    (12) expression -> expression SUP expression .
+    (11) expression -> expression . INF expression
+    (12) expression -> expression . SUP expression
+    (13) expression -> expression . INFEQ expression
+    (14) expression -> expression . SUPEQ expression
+    (15) expression -> expression . PLUS expression
+    (16) expression -> expression . TIMES expression
+    (17) expression -> expression . MINUS expression
+    (18) expression -> expression . DIVIDE expression
+    (19) expression -> expression . AND expression
+    (20) expression -> expression . OR expression
+
+    INF             reduce using rule 12 (expression -> expression SUP expression .)
+    SUP             reduce using rule 12 (expression -> expression SUP expression .)
+    INFEQ           reduce using rule 12 (expression -> expression SUP expression .)
+    SUPEQ           reduce using rule 12 (expression -> expression SUP expression .)
+    AND             reduce using rule 12 (expression -> expression SUP expression .)
+    OR              reduce using rule 12 (expression -> expression SUP expression .)
+    SEMI            reduce using rule 12 (expression -> expression SUP expression .)
+    RPAREN          reduce using rule 12 (expression -> expression SUP expression .)
+    PLUS            shift and go to state 27
+    TIMES           shift and go to state 28
+    MINUS           shift and go to state 29
+    DIVIDE          shift and go to state 30
+
+  ! PLUS            [ reduce using rule 12 (expression -> expression SUP expression .) ]
+  ! TIMES           [ reduce using rule 12 (expression -> expression SUP expression .) ]
+  ! MINUS           [ reduce using rule 12 (expression -> expression SUP expression .) ]
+  ! DIVIDE          [ reduce using rule 12 (expression -> expression SUP expression .) ]
+  ! INF             [ shift and go to state 23 ]
+  ! SUP             [ shift and go to state 24 ]
+  ! INFEQ           [ shift and go to state 25 ]
+  ! SUPEQ           [ shift and go to state 26 ]
+  ! AND             [ shift and go to state 31 ]
+  ! OR              [ shift and go to state 32 ]
+
+
+state 39
+
+    (13) expression -> expression INFEQ expression .
+    (11) expression -> expression . INF expression
+    (12) expression -> expression . SUP expression
+    (13) expression -> expression . INFEQ expression
+    (14) expression -> expression . SUPEQ expression
+    (15) expression -> expression . PLUS expression
+    (16) expression -> expression . TIMES expression
+    (17) expression -> expression . MINUS expression
+    (18) expression -> expression . DIVIDE expression
+    (19) expression -> expression . AND expression
+    (20) expression -> expression . OR expression
+
+    INF             reduce using rule 13 (expression -> expression INFEQ expression .)
+    SUP             reduce using rule 13 (expression -> expression INFEQ expression .)
+    INFEQ           reduce using rule 13 (expression -> expression INFEQ expression .)
+    SUPEQ           reduce using rule 13 (expression -> expression INFEQ expression .)
+    AND             reduce using rule 13 (expression -> expression INFEQ expression .)
+    OR              reduce using rule 13 (expression -> expression INFEQ expression .)
+    SEMI            reduce using rule 13 (expression -> expression INFEQ expression .)
+    RPAREN          reduce using rule 13 (expression -> expression INFEQ expression .)
+    PLUS            shift and go to state 27
+    TIMES           shift and go to state 28
+    MINUS           shift and go to state 29
+    DIVIDE          shift and go to state 30
+
+  ! PLUS            [ reduce using rule 13 (expression -> expression INFEQ expression .) ]
+  ! TIMES           [ reduce using rule 13 (expression -> expression INFEQ expression .) ]
+  ! MINUS           [ reduce using rule 13 (expression -> expression INFEQ expression .) ]
+  ! DIVIDE          [ reduce using rule 13 (expression -> expression INFEQ expression .) ]
+  ! INF             [ shift and go to state 23 ]
+  ! SUP             [ shift and go to state 24 ]
+  ! INFEQ           [ shift and go to state 25 ]
+  ! SUPEQ           [ shift and go to state 26 ]
+  ! AND             [ shift and go to state 31 ]
+  ! OR              [ shift and go to state 32 ]
+
+
+state 40
+
+    (14) expression -> expression SUPEQ expression .
+    (11) expression -> expression . INF expression
+    (12) expression -> expression . SUP expression
+    (13) expression -> expression . INFEQ expression
+    (14) expression -> expression . SUPEQ expression
+    (15) expression -> expression . PLUS expression
+    (16) expression -> expression . TIMES expression
+    (17) expression -> expression . MINUS expression
+    (18) expression -> expression . DIVIDE expression
+    (19) expression -> expression . AND expression
+    (20) expression -> expression . OR expression
+
+    INF             reduce using rule 14 (expression -> expression SUPEQ expression .)
+    SUP             reduce using rule 14 (expression -> expression SUPEQ expression .)
+    INFEQ           reduce using rule 14 (expression -> expression SUPEQ expression .)
+    SUPEQ           reduce using rule 14 (expression -> expression SUPEQ expression .)
+    AND             reduce using rule 14 (expression -> expression SUPEQ expression .)
+    OR              reduce using rule 14 (expression -> expression SUPEQ expression .)
+    SEMI            reduce using rule 14 (expression -> expression SUPEQ expression .)
+    RPAREN          reduce using rule 14 (expression -> expression SUPEQ expression .)
+    PLUS            shift and go to state 27
+    TIMES           shift and go to state 28
+    MINUS           shift and go to state 29
+    DIVIDE          shift and go to state 30
+
+  ! PLUS            [ reduce using rule 14 (expression -> expression SUPEQ expression .) ]
+  ! TIMES           [ reduce using rule 14 (expression -> expression SUPEQ expression .) ]
+  ! MINUS           [ reduce using rule 14 (expression -> expression SUPEQ expression .) ]
+  ! DIVIDE          [ reduce using rule 14 (expression -> expression SUPEQ expression .) ]
+  ! INF             [ shift and go to state 23 ]
+  ! SUP             [ shift and go to state 24 ]
+  ! INFEQ           [ shift and go to state 25 ]
+  ! SUPEQ           [ shift and go to state 26 ]
+  ! AND             [ shift and go to state 31 ]
+  ! OR              [ shift and go to state 32 ]
+
+
+state 41
+
+    (15) expression -> expression PLUS expression .
+    (11) expression -> expression . INF expression
+    (12) expression -> expression . SUP expression
+    (13) expression -> expression . INFEQ expression
+    (14) expression -> expression . SUPEQ expression
+    (15) expression -> expression . PLUS expression
+    (16) expression -> expression . TIMES expression
+    (17) expression -> expression . MINUS expression
+    (18) expression -> expression . DIVIDE expression
+    (19) expression -> expression . AND expression
+    (20) expression -> expression . OR expression
+
+    INF             reduce using rule 15 (expression -> expression PLUS expression .)
+    SUP             reduce using rule 15 (expression -> expression PLUS expression .)
+    INFEQ           reduce using rule 15 (expression -> expression PLUS expression .)
+    SUPEQ           reduce using rule 15 (expression -> expression PLUS expression .)
+    PLUS            reduce using rule 15 (expression -> expression PLUS expression .)
+    MINUS           reduce using rule 15 (expression -> expression PLUS expression .)
+    AND             reduce using rule 15 (expression -> expression PLUS expression .)
+    OR              reduce using rule 15 (expression -> expression PLUS expression .)
+    SEMI            reduce using rule 15 (expression -> expression PLUS expression .)
+    RPAREN          reduce using rule 15 (expression -> expression PLUS expression .)
+    TIMES           shift and go to state 28
+    DIVIDE          shift and go to state 30
+
+  ! TIMES           [ reduce using rule 15 (expression -> expression PLUS expression .) ]
+  ! DIVIDE          [ reduce using rule 15 (expression -> expression PLUS expression .) ]
+  ! INF             [ shift and go to state 23 ]
+  ! SUP             [ shift and go to state 24 ]
+  ! INFEQ           [ shift and go to state 25 ]
+  ! SUPEQ           [ shift and go to state 26 ]
+  ! PLUS            [ shift and go to state 27 ]
+  ! MINUS           [ shift and go to state 29 ]
+  ! AND             [ shift and go to state 31 ]
+  ! OR              [ shift and go to state 32 ]
+
+
+state 42
+
+    (16) expression -> expression TIMES expression .
+    (11) expression -> expression . INF expression
+    (12) expression -> expression . SUP expression
+    (13) expression -> expression . INFEQ expression
+    (14) expression -> expression . SUPEQ expression
+    (15) expression -> expression . PLUS expression
+    (16) expression -> expression . TIMES expression
+    (17) expression -> expression . MINUS expression
+    (18) expression -> expression . DIVIDE expression
+    (19) expression -> expression . AND expression
+    (20) expression -> expression . OR expression
+
+    INF             reduce using rule 16 (expression -> expression TIMES expression .)
+    SUP             reduce using rule 16 (expression -> expression TIMES expression .)
+    INFEQ           reduce using rule 16 (expression -> expression TIMES expression .)
+    SUPEQ           reduce using rule 16 (expression -> expression TIMES expression .)
+    PLUS            reduce using rule 16 (expression -> expression TIMES expression .)
+    TIMES           reduce using rule 16 (expression -> expression TIMES expression .)
+    MINUS           reduce using rule 16 (expression -> expression TIMES expression .)
+    DIVIDE          reduce using rule 16 (expression -> expression TIMES expression .)
+    AND             reduce using rule 16 (expression -> expression TIMES expression .)
+    OR              reduce using rule 16 (expression -> expression TIMES expression .)
+    SEMI            reduce using rule 16 (expression -> expression TIMES expression .)
+    RPAREN          reduce using rule 16 (expression -> expression TIMES expression .)
+
+  ! INF             [ shift and go to state 23 ]
+  ! SUP             [ shift and go to state 24 ]
+  ! INFEQ           [ shift and go to state 25 ]
+  ! SUPEQ           [ shift and go to state 26 ]
+  ! PLUS            [ shift and go to state 27 ]
+  ! TIMES           [ shift and go to state 28 ]
+  ! MINUS           [ shift and go to state 29 ]
+  ! DIVIDE          [ shift and go to state 30 ]
+  ! AND             [ shift and go to state 31 ]
+  ! OR              [ shift and go to state 32 ]
+
+
+state 43
+
+    (17) expression -> expression MINUS expression .
+    (11) expression -> expression . INF expression
+    (12) expression -> expression . SUP expression
+    (13) expression -> expression . INFEQ expression
+    (14) expression -> expression . SUPEQ expression
+    (15) expression -> expression . PLUS expression
+    (16) expression -> expression . TIMES expression
+    (17) expression -> expression . MINUS expression
+    (18) expression -> expression . DIVIDE expression
+    (19) expression -> expression . AND expression
+    (20) expression -> expression . OR expression
+
+    INF             reduce using rule 17 (expression -> expression MINUS expression .)
+    SUP             reduce using rule 17 (expression -> expression MINUS expression .)
+    INFEQ           reduce using rule 17 (expression -> expression MINUS expression .)
+    SUPEQ           reduce using rule 17 (expression -> expression MINUS expression .)
+    PLUS            reduce using rule 17 (expression -> expression MINUS expression .)
+    MINUS           reduce using rule 17 (expression -> expression MINUS expression .)
+    AND             reduce using rule 17 (expression -> expression MINUS expression .)
+    OR              reduce using rule 17 (expression -> expression MINUS expression .)
+    SEMI            reduce using rule 17 (expression -> expression MINUS expression .)
+    RPAREN          reduce using rule 17 (expression -> expression MINUS expression .)
+    TIMES           shift and go to state 28
+    DIVIDE          shift and go to state 30
+
+  ! TIMES           [ reduce using rule 17 (expression -> expression MINUS expression .) ]
+  ! DIVIDE          [ reduce using rule 17 (expression -> expression MINUS expression .) ]
+  ! INF             [ shift and go to state 23 ]
+  ! SUP             [ shift and go to state 24 ]
+  ! INFEQ           [ shift and go to state 25 ]
+  ! SUPEQ           [ shift and go to state 26 ]
+  ! PLUS            [ shift and go to state 27 ]
+  ! MINUS           [ shift and go to state 29 ]
+  ! AND             [ shift and go to state 31 ]
+  ! OR              [ shift and go to state 32 ]
+
+
+state 44
+
+    (18) expression -> expression DIVIDE expression .
+    (11) expression -> expression . INF expression
+    (12) expression -> expression . SUP expression
+    (13) expression -> expression . INFEQ expression
+    (14) expression -> expression . SUPEQ expression
+    (15) expression -> expression . PLUS expression
+    (16) expression -> expression . TIMES expression
+    (17) expression -> expression . MINUS expression
+    (18) expression -> expression . DIVIDE expression
+    (19) expression -> expression . AND expression
+    (20) expression -> expression . OR expression
+
+    INF             reduce using rule 18 (expression -> expression DIVIDE expression .)
+    SUP             reduce using rule 18 (expression -> expression DIVIDE expression .)
+    INFEQ           reduce using rule 18 (expression -> expression DIVIDE expression .)
+    SUPEQ           reduce using rule 18 (expression -> expression DIVIDE expression .)
+    PLUS            reduce using rule 18 (expression -> expression DIVIDE expression .)
+    TIMES           reduce using rule 18 (expression -> expression DIVIDE expression .)
+    MINUS           reduce using rule 18 (expression -> expression DIVIDE expression .)
+    DIVIDE          reduce using rule 18 (expression -> expression DIVIDE expression .)
+    AND             reduce using rule 18 (expression -> expression DIVIDE expression .)
+    OR              reduce using rule 18 (expression -> expression DIVIDE expression .)
+    SEMI            reduce using rule 18 (expression -> expression DIVIDE expression .)
+    RPAREN          reduce using rule 18 (expression -> expression DIVIDE expression .)
+
+  ! INF             [ shift and go to state 23 ]
+  ! SUP             [ shift and go to state 24 ]
+  ! INFEQ           [ shift and go to state 25 ]
+  ! SUPEQ           [ shift and go to state 26 ]
+  ! PLUS            [ shift and go to state 27 ]
+  ! TIMES           [ shift and go to state 28 ]
+  ! MINUS           [ shift and go to state 29 ]
+  ! DIVIDE          [ shift and go to state 30 ]
+  ! AND             [ shift and go to state 31 ]
+  ! OR              [ shift and go to state 32 ]
+
+
+state 45
+
+    (19) expression -> expression AND expression .
+    (11) expression -> expression . INF expression
+    (12) expression -> expression . SUP expression
+    (13) expression -> expression . INFEQ expression
+    (14) expression -> expression . SUPEQ expression
+    (15) expression -> expression . PLUS expression
+    (16) expression -> expression . TIMES expression
+    (17) expression -> expression . MINUS expression
+    (18) expression -> expression . DIVIDE expression
+    (19) expression -> expression . AND expression
+    (20) expression -> expression . OR expression
+
+    AND             reduce using rule 19 (expression -> expression AND expression .)
+    OR              reduce using rule 19 (expression -> expression AND expression .)
+    SEMI            reduce using rule 19 (expression -> expression AND expression .)
+    RPAREN          reduce using rule 19 (expression -> expression AND expression .)
+    INF             shift and go to state 23
+    SUP             shift and go to state 24
+    INFEQ           shift and go to state 25
+    SUPEQ           shift and go to state 26
+    PLUS            shift and go to state 27
+    TIMES           shift and go to state 28
+    MINUS           shift and go to state 29
+    DIVIDE          shift and go to state 30
+
+  ! INF             [ reduce using rule 19 (expression -> expression AND expression .) ]
+  ! SUP             [ reduce using rule 19 (expression -> expression AND expression .) ]
+  ! INFEQ           [ reduce using rule 19 (expression -> expression AND expression .) ]
+  ! SUPEQ           [ reduce using rule 19 (expression -> expression AND expression .) ]
+  ! PLUS            [ reduce using rule 19 (expression -> expression AND expression .) ]
+  ! TIMES           [ reduce using rule 19 (expression -> expression AND expression .) ]
+  ! MINUS           [ reduce using rule 19 (expression -> expression AND expression .) ]
+  ! DIVIDE          [ reduce using rule 19 (expression -> expression AND expression .) ]
+  ! AND             [ shift and go to state 31 ]
+  ! OR              [ shift and go to state 32 ]
+
+
+state 46
+
+    (20) expression -> expression OR expression .
+    (11) expression -> expression . INF expression
+    (12) expression -> expression . SUP expression
+    (13) expression -> expression . INFEQ expression
+    (14) expression -> expression . SUPEQ expression
+    (15) expression -> expression . PLUS expression
+    (16) expression -> expression . TIMES expression
+    (17) expression -> expression . MINUS expression
+    (18) expression -> expression . DIVIDE expression
+    (19) expression -> expression . AND expression
+    (20) expression -> expression . OR expression
+
+    AND             reduce using rule 20 (expression -> expression OR expression .)
+    OR              reduce using rule 20 (expression -> expression OR expression .)
+    SEMI            reduce using rule 20 (expression -> expression OR expression .)
+    RPAREN          reduce using rule 20 (expression -> expression OR expression .)
+    INF             shift and go to state 23
+    SUP             shift and go to state 24
+    INFEQ           shift and go to state 25
+    SUPEQ           shift and go to state 26
+    PLUS            shift and go to state 27
+    TIMES           shift and go to state 28
+    MINUS           shift and go to state 29
+    DIVIDE          shift and go to state 30
+
+  ! INF             [ reduce using rule 20 (expression -> expression OR expression .) ]
+  ! SUP             [ reduce using rule 20 (expression -> expression OR expression .) ]
+  ! INFEQ           [ reduce using rule 20 (expression -> expression OR expression .) ]
+  ! SUPEQ           [ reduce using rule 20 (expression -> expression OR expression .) ]
+  ! PLUS            [ reduce using rule 20 (expression -> expression OR expression .) ]
+  ! TIMES           [ reduce using rule 20 (expression -> expression OR expression .) ]
+  ! MINUS           [ reduce using rule 20 (expression -> expression OR expression .) ]
+  ! DIVIDE          [ reduce using rule 20 (expression -> expression OR expression .) ]
+  ! AND             [ shift and go to state 31 ]
+  ! OR              [ shift and go to state 32 ]
+
+
+state 47
+
+    (21) expression -> LPAREN expression RPAREN .
+
+    INF             reduce using rule 21 (expression -> LPAREN expression RPAREN .)
+    SUP             reduce using rule 21 (expression -> LPAREN expression RPAREN .)
+    INFEQ           reduce using rule 21 (expression -> LPAREN expression RPAREN .)
+    SUPEQ           reduce using rule 21 (expression -> LPAREN expression RPAREN .)
+    PLUS            reduce using rule 21 (expression -> LPAREN expression RPAREN .)
+    TIMES           reduce using rule 21 (expression -> LPAREN expression RPAREN .)
+    MINUS           reduce using rule 21 (expression -> LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 21 (expression -> LPAREN expression RPAREN .)
+    AND             reduce using rule 21 (expression -> LPAREN expression RPAREN .)
+    OR              reduce using rule 21 (expression -> LPAREN expression RPAREN .)
+    SEMI            reduce using rule 21 (expression -> LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 21 (expression -> LPAREN expression RPAREN .)
+
