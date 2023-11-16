@@ -166,6 +166,22 @@ def p_expression_binop_or(p):
     'expression : expression OR expression'
     # p[0] = p[1] or p[3]
     p[0] = ('or', p[1], p[3])
+
+def eval(t):
+    if type(t) == int:
+        return t
+
+    if type(t) == tuple:
+        if t[0] == 'add':
+            return eval(t[1]) + eval(t[2])
+        if t[0] == 'substract':
+            return eval(t[1]) - eval(t[2])
+        if t[0] == 'multiply':
+            return eval(t[1]) * eval(t[2])
+        if t[0] == 'divide' :
+            if t[2] != 0 :
+                return eval(t[1]) / eval(t[2])
+        # TODO : handle error when dividing by 0
     
 def p_expression_group(p):
     'expression : LPAREN expression RPAREN'
