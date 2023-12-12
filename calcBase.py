@@ -86,12 +86,8 @@ def p_block(p):
     
     if(len(p) == 4): # had to put the block on the left to execute the insturctions in the right order
         p[0] = ('block', p[1], p[2])
-        # printTreeGraph(p[2])
-        # eval(p[2])
     else:
         p[0] = ('block', p[1], 'empty')
-        # printTreeGraph(p[1])
-        # eval(p[1])
 
 def p_statement_assign(p):
     'statement : NAME EQUALS expression'
