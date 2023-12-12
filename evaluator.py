@@ -8,6 +8,8 @@ def eval(t):
     if type(t) == str:
         if t == 'empty':
             return None
+        else:
+            return t
     if type(t) == tuple:
         if t[0] == 'block':
             eval(t[1])
@@ -25,6 +27,7 @@ def eval(t):
                 print("Error: Division by zero")
                 return None
         elif t[0] == 'print':
+            print('\nvalue to be printed: ', t[1])
             print_value = eval(t[1])
             print("print >", print_value)
             return print_value

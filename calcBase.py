@@ -43,7 +43,7 @@ t_SUP         = r'\>'
 t_INFEQ       = r'\<\='
 t_SUPEQ       = r'\>\='
 t_COMMENTLINE = r'\/\/.+'
-t_COMMENTBLOCK = r'\/\*[.\\n]*?\*\/' # NOTE: WE CAN'T TEST THIS YET
+t_COMMENTBLOCK = r'\/\*[\s\S]*?\*\/'
 t_STRING       = r'\".*\"'
 
 def t_NUMBER(t):
@@ -82,6 +82,13 @@ def p_block(p):
              | statement SEMI
              | COMMENTLINE
              | COMMENTBLOCK'''
+    
+    print('\nlen: ', len(p))
+    
+    if len(p) == 2:
+        p[0] = 'empty'
+        print('HEREEE')
+        return
     
     p[0] = ('block', p[1], p[2])
     
