@@ -1,11 +1,17 @@
+from genereTreeGraphviz2 import printTreeGraph
+
 names = {}
 
 def eval(t):
     if type(t) == int:
         return t
-
+    if type(t) == str:
+        return None
     if type(t) == tuple:
-        if t[0] == 'add':
+        if t[0] == 'block':
+            eval(t[1])
+            eval(t[2])
+        elif t[0] == 'add':
             return eval(t[1]) + eval(t[2])
         elif t[0] == 'substract':
             return eval(t[1]) - eval(t[2])

@@ -1,4 +1,5 @@
 from evaluator import eval
+from genereTreeGraphviz2 import printTreeGraph
 
 precedence = (
     ('left', 'AND', 'OR'),
@@ -69,16 +70,28 @@ def t_error(t):
 import ply.lex as lex
 lex.lex()
 
+def p_start(p):
+    '''start : block'''
+    eval(p[1])
+    printTreeGraph(p[1])
+
+
 def p_block(p):
     '''block : block statement SEMI
              | statement SEMI
              | COMMENTLINE
              | COMMENTBLOCK'''
     
+    p[0] = ('block', p[1], p[2])
+    
     if(len(p) == 4): # had to put the block on the left to execute the insturctions in the right order
-        eval(p[2])
+        p[0] = ('block', p[1], p[2])
+        # printTreeGraph(p[2])
+        # eval(p[2])
     else:
-        eval(p[1])
+        p[0] = ('block', p[1], 'empty')
+        # printTreeGraph(p[1])
+        # eval(p[1])
 
 def p_statement_assign(p):
     'statement : NAME EQUALS expression'
