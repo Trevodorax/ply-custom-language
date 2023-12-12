@@ -1,5 +1,6 @@
 from evaluator import eval
 from genereTreeGraphviz2 import printTreeGraph
+import sys
 
 precedence = (
     ('left', 'AND', 'OR'),
@@ -73,7 +74,7 @@ lex.lex()
 def p_start(p):
     '''start : block'''
     eval(p[1])
-    printTreeGraph(p[1])
+    # printTreeGraph(p[1])
 
 
 def p_block(p):
@@ -175,7 +176,12 @@ def p_error(p):
 import ply.yacc as yacc
 yacc.yacc()
 
-s = input('calc > ')
-yacc.parse(s)
+s = 'print("No program found");'
+if len(sys.argv) == 1:
+    s = input('calc > ')
+else:
+    file = open(sys.argv[1], "r+")
+    file_content = file.read()
+    s = file_content
 
-    
+yacc.parse(s)
