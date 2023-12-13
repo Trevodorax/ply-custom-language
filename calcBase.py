@@ -80,22 +80,24 @@ def p_start(p):
 def p_block(p):
     '''block : block statement SEMI
              | statement SEMI
+             | block COMMENTLINE
+             | block COMMENTBLOCK
              | COMMENTLINE
              | COMMENTBLOCK'''
-    
-    print('\nlen: ', len(p))
-    
-    if len(p) == 2:
+
+    # Handling comments: If the rule is just for a comment, do nothing
+    if len(p) == 2 and (p[1] == 'COMMENTLINE' or p[1] == 'COMMENTBLOCK'):
         p[0] = 'empty'
-        print('HEREEE')
         return
-    
-    p[0] = ('block', p[1], p[2])
-    
-    if(len(p) == 4): # had to put the block on the left to execute the insturctions in the right order
+
+    # Handling blocks and statements
+    if len(p) == 4: # had to put the block on the left to execute the insturctions in the right order
+        # When a block is followed by a statement and a semicolon
         p[0] = ('block', p[1], p[2])
     else:
+        # When it's just a statement followed by a semicolon
         p[0] = ('block', p[1], 'empty')
+
 
 def p_statement_assign(p):
     'statement : NAME EQUALS expression'
