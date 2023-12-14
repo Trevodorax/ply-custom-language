@@ -1,10 +1,7 @@
-print("anaelle");
-
-/*
-print("polo");
-*/
-
-print(2);
-print(3);
-//print(4);
-print(5);
+print("pol");
+if (0) {
+    print("test");
+} else {
+    print("anaelle");
+};
+print("clarence");

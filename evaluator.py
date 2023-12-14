@@ -27,7 +27,6 @@ def eval(t):
                 print("Error: Division by zero")
                 return None
         elif t[0] == 'print':
-            print('\nvalue to be printed: ', t[1])
             print_value = eval(t[1])
             print("print >", print_value)
             return print_value
@@ -55,6 +54,13 @@ def eval(t):
             names[t[1]] -= eval(t[2])
         elif t[0] == 'get':
             return names.get(t[1])
+        elif t[0] == 'ifelse':
+            if t[1]:
+                eval(t[2])
+            else:
+                if t[3] is None:  # no else
+                    return
+                eval(t[3])
     else:
         print("Unknown expression type:", t)
         return None

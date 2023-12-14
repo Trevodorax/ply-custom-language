@@ -14,7 +14,10 @@ precedence = (
 )
 
 reserved = {
-    'print' : 'PRINT'
+    'print' : 'PRINT',
+    'if' : 'IF',
+    'else if' : 'ELSE_IF',
+    'else' : 'ELSE'
 }
 
 tokens = [
@@ -24,7 +27,8 @@ tokens = [
     'OR',           'SEMI',        'NAME', 
     'EQUALS',       'INF',         'SUP', 
     'INFEQ',        'SUPEQ',
-    'COMMENTLINE',  'COMMENTBLOCK','STRING'
+    'COMMENTLINE',  'COMMENTBLOCK','STRING',
+    'LBRACKET',     'RBRACKET'
 ] + list(reserved.values())
 
 # Tokens
@@ -34,6 +38,8 @@ t_TIMES       = r'\*'
 t_DIVIDE      = r'\/'
 t_LPAREN      = r'\('
 t_RPAREN      = r'\)'
+t_LBRACKET      = r'\{'
+t_RBRACKET      = r'\}'
 t_AND         = r'\&'
 t_OR          = r'\|'
 t_SEMI        = r'\;'
@@ -74,7 +80,7 @@ lex.lex()
 def p_start(p):
     '''start : block'''
     eval(p[1])
-    # printTreeGraph(p[1])
+    printTreeGraph(p[1])
 
 
 def p_block(p):
@@ -98,6 +104,13 @@ def p_block(p):
         # When it's just a statement followed by a semicolon
         p[0] = ('block', p[1], 'empty')
 
+def p_statement_condition(p):
+    '''statement : IF LPAREN expression RPAREN LBRACKET block RBRACKET
+                | IF LPAREN expression RPAREN LBRACKET block RBRACKET ELSE LBRACKET block RBRACKET'''
+    if len(p) == 8:
+        p[0] = ('ifelse', p[3], p[6], None)
+    elif len(p) == 12:
+        p[0] = ('ifelse', p[3], p[6], p[10])
 
 def p_statement_assign(p):
     'statement : NAME EQUALS expression'
