@@ -64,6 +64,10 @@ def eval(t):
         elif t[0] == 'while':
             while eval(t[1]):
                 eval(t[2])
+        elif t[0] == 'dowhile':
+            eval(t[1])
+            while eval(t[2]):
+                eval(t[1])
         elif t[0] == 'for':
             eval(t[1])
             while eval(t[2]):

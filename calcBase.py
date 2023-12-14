@@ -18,7 +18,8 @@ reserved = {
     'if' : 'IF',
     'else' : 'ELSE',
     'for' : 'FOR',
-    'while' : 'WHILE'
+    'while' : 'WHILE',
+    'do' : 'DO'
 }
 
 tokens = [
@@ -116,6 +117,10 @@ def p_statement_condition(p):
 def p_statement_while(p):
     '''statement : WHILE LPAREN expression RPAREN LBRACKET block RBRACKET'''
     p[0] = ('while', p[3], p[6])
+
+def p_statement_do_while(p):
+    '''statement : DO LBRACKET block RBRACKET WHILE LPAREN expression RPAREN'''
+    p[0] = ('dowhile', p[3], p[7])
 
 def p_statement_for(p):
     '''statement : FOR LPAREN statement SEMI expression SEMI statement RPAREN LBRACKET block RBRACKET'''
