@@ -1,7 +1,5 @@
 print("pol");
-if (0) {
-    print("test");
-} else {
-    print("anaelle");
+for (i = 0; i < 10; i++) {
+  print(i);
 };
 print("clarence");

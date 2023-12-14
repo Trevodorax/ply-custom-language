@@ -16,8 +16,9 @@ precedence = (
 reserved = {
     'print' : 'PRINT',
     'if' : 'IF',
-    'else if' : 'ELSE_IF',
-    'else' : 'ELSE'
+    'else' : 'ELSE',
+    'for' : 'FOR',
+    'while' : 'WHILE'
 }
 
 tokens = [
@@ -80,7 +81,7 @@ lex.lex()
 def p_start(p):
     '''start : block'''
     eval(p[1])
-    printTreeGraph(p[1])
+    # printTreeGraph(p[1])
 
 
 def p_block(p):
@@ -111,6 +112,14 @@ def p_statement_condition(p):
         p[0] = ('ifelse', p[3], p[6], None)
     elif len(p) == 12:
         p[0] = ('ifelse', p[3], p[6], p[10])
+
+def p_statement_while(p):
+    '''statement : WHILE LPAREN expression RPAREN LBRACKET block RBRACKET'''
+    p[0] = ('while', p[3], p[6])
+
+def p_statement_for(p):
+    '''statement : FOR LPAREN statement SEMI expression SEMI statement RPAREN LBRACKET block RBRACKET'''
+    p[0] = ('for', p[3], p[5], p[7], p[10])
 
 def p_statement_assign(p):
     'statement : NAME EQUALS expression'

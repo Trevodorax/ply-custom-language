@@ -61,6 +61,14 @@ def eval(t):
                 if t[3] is None:  # no else
                     return
                 eval(t[3])
+        elif t[0] == 'while':
+            while eval(t[1]):
+                eval(t[2])
+        elif t[0] == 'for':
+            eval(t[1])
+            while eval(t[2]):
+                eval(t[4])
+                eval(t[3])
     else:
         print("Unknown expression type:", t)
         return None
