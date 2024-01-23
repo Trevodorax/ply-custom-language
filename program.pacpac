@@ -10,4 +10,7 @@ do {
   test();
   i++;
 } while (i < 10);
+a, b = 2, 3;
+print(a);
+print(b);
 print("clarence");

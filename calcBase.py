@@ -193,6 +193,10 @@ def p_statement_sub(p):
     'statement : NAME MINUS EQUALS expression'
     p[0] = ('decrement', p[1], p[4])
 
+def p_statement_multiple_assign(p):
+    'statement : names_list EQUALS expression_list'
+    p[0] = ('multiple_assign', list(zip(p[1], p[3])))
+
 def p_expression_binop_inf(p):
     'expression : expression INF expression'
     p[0] = ('smaller', p[1], p[3])
@@ -248,6 +252,22 @@ def p_expression_string(p):
 def p_expression_name(p):
     'expression : NAME'
     p[0] = ('get', p[1])
+
+def p_list_expression(p):
+    '''expression_list : expression
+                | expression_list COMMA expression'''
+    if len(p) == 2:
+        p[0] = [p[1]]
+    else:
+        p[0] = p[1] + [p[3]]
+
+def p_list_names(p):
+    '''names_list : NAME
+                | names_list COMMA NAME'''
+    if len(p) == 2:
+        p[0] = [p[1]]
+    else:
+        p[0] = p[1] + [p[3]]
 
 def p_error(p):
     print("Syntax error at '%s'" % p.value)

@@ -18,6 +18,9 @@ def eval_instruction(t, env = main_env):
             return print_value
         elif t[0] == 'assign':
             env['names'][t[1]] = eval_expression(t[2])
+        elif t[0] == 'multiple_assign':
+            for (name, value) in t[1]:
+                env['names'][name] = eval_expression(value)
         elif t[0] == 'incrementone':
             env['names'][t[1]] += 1
         elif t[0] == 'decrementone':
