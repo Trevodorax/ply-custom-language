@@ -21,7 +21,8 @@ reserved = {
     'while' : 'WHILE',
     'do' : 'DO',
     'void' : 'VOID',
-    'function' : 'FUNCTION'
+    'function' : 'FUNCTION',
+    'return' : 'RETURN'
 }
 
 tokens = [
@@ -155,6 +156,10 @@ def p_arguments_nonempty(p):
 def p_statement_function_declaration(p):
     '''statement : function_declaration'''
     p[0] = p[1]
+
+def p_statement_return(p):
+    '''statement : RETURN SEMI'''
+    p[0] = ('return', None)
 
 
 # loops
