@@ -1,4 +1,4 @@
-from evaluator import eval
+from evaluator import eval_instruction
 from genereTreeGraphviz2 import printTreeGraph
 import sys
 
@@ -81,7 +81,7 @@ lex.lex()
 
 def p_start(p):
     '''start : block'''
-    eval(p[1])
+    eval_instruction(p[1])
     # printTreeGraph(p[1])
 
 
