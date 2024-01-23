@@ -1,7 +1,13 @@
+
+void function test() {
+  print("test");
+};
+
+
 print("pol");
 i = 1;
 do {
-  print(i);
+  test();
   i++;
 } while (i < 10);
 print("clarence");

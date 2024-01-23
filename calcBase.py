@@ -19,7 +19,9 @@ reserved = {
     'else' : 'ELSE',
     'for' : 'FOR',
     'while' : 'WHILE',
-    'do' : 'DO'
+    'do' : 'DO',
+    'void' : 'VOID',
+    'function' : 'FUNCTION'
 }
 
 tokens = [
@@ -30,29 +32,30 @@ tokens = [
     'EQUALS',       'INF',         'SUP', 
     'INFEQ',        'SUPEQ',
     'COMMENTLINE',  'COMMENTBLOCK','STRING',
-    'LBRACKET',     'RBRACKET'
+    'LBRACKET',     'RBRACKET',     'COMMA'
 ] + list(reserved.values())
 
 # Tokens
-t_PLUS        = r'\+'
-t_MINUS       = r'\-'
-t_TIMES       = r'\*'
-t_DIVIDE      = r'\/'
-t_LPAREN      = r'\('
-t_RPAREN      = r'\)'
+t_PLUS          = r'\+'
+t_MINUS         = r'\-'
+t_TIMES         = r'\*'
+t_DIVIDE        = r'\/'
+t_LPAREN        = r'\('
+t_RPAREN        = r'\)'
 t_LBRACKET      = r'\{'
 t_RBRACKET      = r'\}'
-t_AND         = r'\&'
-t_OR          = r'\|'
-t_SEMI        = r'\;'
-t_EQUALS      = r'\='
-t_INF         = r'\<'
-t_SUP         = r'\>'
-t_INFEQ       = r'\<\='
-t_SUPEQ       = r'\>\='
-t_COMMENTLINE = r'\/\/.+'
-t_COMMENTBLOCK = r'\/\*[\s\S]*?\*\/'
-t_STRING       = r'\".*\"'
+t_AND           = r'\&'
+t_OR            = r'\|'
+t_SEMI          = r'\;'
+t_EQUALS        = r'\='
+t_INF           = r'\<'
+t_SUP           = r'\>'
+t_INFEQ         = r'\<\='
+t_SUPEQ         = r'\>\='
+t_COMMENTLINE   = r'\/\/.+'
+t_COMMENTBLOCK  = r'\/\*[\s\S]*?\*\/'
+t_STRING        = r'\".*\"'
+t_COMMA         = r','
 
 def t_NUMBER(t):
     r'\d+'
@@ -82,7 +85,7 @@ lex.lex()
 def p_start(p):
     '''start : block'''
     eval_instruction(p[1])
-    # printTreeGraph(p[1])
+    printTreeGraph(p[1])
 
 
 def p_block(p):
@@ -114,6 +117,46 @@ def p_statement_condition(p):
     elif len(p) == 12:
         p[0] = ('ifelse', p[3], p[6], p[10])
 
+
+# functions
+        
+def p_function_declaration(p):
+    '''function_declaration : VOID FUNCTION NAME LPAREN parameters RPAREN LBRACKET block RBRACKET'''
+    p[0] = ('function_declaration', p[3], p[5], p[8])
+
+def p_parameters_empty(p):
+    'parameters : '
+    p[0] = []
+
+def p_parameters_nonempty(p):
+    '''parameters : parameters COMMA NAME
+                  | NAME'''
+    if len(p) == 4:
+        p[0] = p[1] + [p[3]]
+    else:
+        p[0] = [p[1]]
+
+def p_statement_function_call(p):
+    'statement : NAME LPAREN arguments RPAREN'
+    p[0] = ('function_call', p[1], p[3])
+
+def p_arguments_empty(p):
+    'arguments : '
+    p[0] = []
+
+def p_arguments_nonempty(p):
+    '''arguments : arguments COMMA expression
+                 | expression'''
+    if len(p) == 4:
+        p[0] = p[1] + [p[3]]
+    else:
+        p[0] = [p[1]]
+
+def p_statement_function_declaration(p):
+    '''statement : function_declaration'''
+    p[0] = p[1]
+
+# loops
 def p_statement_while(p):
     '''statement : WHILE LPAREN expression RPAREN LBRACKET block RBRACKET'''
     p[0] = ('while', p[3], p[6])

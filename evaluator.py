@@ -1,6 +1,6 @@
-names = {}
+main_env = {'names': {}, 'functions': {}}
 
-def eval_instruction(t):
+def eval_instruction(t, env = main_env):
     if type(t) == int:
         return t
     if type(t) == str:
@@ -17,17 +17,17 @@ def eval_instruction(t):
             print("print >", print_value)
             return print_value
         elif t[0] == 'assign':
-            names[t[1]] = eval_expression(t[2])
+            env['names'][t[1]] = eval_expression(t[2])
         elif t[0] == 'incrementone':
-            names[t[1]] += 1
+            env['names'][t[1]] += 1
         elif t[0] == 'decrementone':
-            names[t[1]] -= 1
+            env['names'][t[1]] -= 1
         elif t[0] == 'increment':
-            names[t[1]] += eval_expression(t[2])
+            env['names'][t[1]] += eval_expression(t[2])
         elif t[0] == 'decrement':
-            names[t[1]] -= eval_expression(t[2])
+            env['names'][t[1]] -= eval_expression(t[2])
         elif t[0] == 'get':
-            return names.get(t[1])
+            return env['names'].get(t[1])
         elif t[0] == 'ifelse':
             if t[1]:
                 eval_instruction(t[2])
@@ -47,11 +47,23 @@ def eval_instruction(t):
             while eval_expression(t[2]):
                 eval_instruction(t[4])
                 eval_instruction(t[3])
+        elif t[0] == 'function_declaration':
+            function_name = t[1]
+            parameters = t[2]
+            body = t[3]
+            env['functions'][function_name] = (parameters, body)
+        elif t[0] == 'function_call':
+            function_name = t[1]
+            args = t[2]
+            if function_name in env['functions']:
+                params, body = env['functions'][function_name]
+                new_env = {'names': {name: eval_expression(arg, env) for name, arg in zip(params, args)}, 'functions': env['functions']}
+                eval_instruction(body, new_env)
     else:
         print("Unknown expression type:", t)
         return None
 
-def eval_expression(t):
+def eval_expression(t, env = main_env):
     if type(t) == int:
         return t
     if type(t) == str:
@@ -85,7 +97,7 @@ def eval_expression(t):
         elif t[0] == 'or':
             return eval_expression(t[1]) or eval_expression(t[2])
         elif t[0] == 'get':
-            return names.get(t[1])
+            return env['names'].get(t[1])
     else:
         print("Unknown expression type:", t)
         return None
