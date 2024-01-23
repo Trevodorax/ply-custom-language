@@ -12,8 +12,8 @@ def add_block(t):
 
 def run_and_pop_block(depth):
     while stack.size() > depth:
-        test = stack.pop()
-        eval_instruction(test)
+        instruction = stack.pop()
+        eval_instruction(instruction)
 
 def eval_instruction(t):
     if type(t) == int:
@@ -104,6 +104,8 @@ def eval_instruction(t):
 
             # remove variables of this function from the stack
             stack.pop()
+        elif t[0] == 'return':
+            stack.flush()
     else:
         print("Unknown expression type:", t)
         return None

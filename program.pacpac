@@ -1,6 +1,8 @@
-void function zizi(text) {
+void function test(text) {
   a = 23;
   print(text);
+  print("should not be printed");
+  return;
 };
 
-zizi("coucou");
+test("coucou");

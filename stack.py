@@ -46,3 +46,9 @@ class Stack:
                     if element == variable_name:
                         return item[element]
         return None
+    
+    def flush(self):
+        while not self.is_empty():
+            if isinstance(self.peek(), dict):
+                break
+            self.pop()

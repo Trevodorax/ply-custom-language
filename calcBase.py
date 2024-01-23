@@ -158,7 +158,7 @@ def p_statement_function_declaration(p):
     p[0] = p[1]
 
 def p_statement_return(p):
-    '''statement : RETURN SEMI'''
+    '''statement : RETURN'''
     p[0] = ('return', None)
 
 
