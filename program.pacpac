@@ -1,4 +1,6 @@
-for(i = 0; i < 4; i++) {
-  print("PONEY");
-  print(i);
+void function zizi(text) {
+  a = 23;
+  print(text);
 };
+
+zizi("coucou");

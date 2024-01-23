@@ -86,16 +86,24 @@ def eval_instruction(t):
             function_name = t[1]
             parameters = t[2]
             body = t[3]
-            # TODO: add the function to the stack
+            createdFn = (parameters, body)
+            stack.setVariable(function_name, createdFn)
         elif t[0] == 'function_call':
-            # TODO: replace this with the stack thingy
             function_name = t[1]
             args = t[2]
-            if function_name in env['functions']:
-                params, body = env['functions'][function_name]
-                new_env = {'names': {name: eval_expression(arg) for name, arg in zip(params, args)}, 'functions': env['functions']}
-                eval_instruction(body, new_env)
-            
+
+            # create a dict with the variables in params and their values passed in args
+            params, body = stack.getVariable(function_name)
+            new_env = dict(zip(params, [eval_expression(arg) for arg in args]))
+            stack.push(new_env)
+
+            # execute body
+            previousStackSize = stack.size()
+            add_block(body)
+            run_and_pop_block(previousStackSize)
+
+            # remove variables of this function from the stack
+            stack.pop()
     else:
         print("Unknown expression type:", t)
         return None
