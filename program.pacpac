@@ -1,16 +1,18 @@
-
-void function test() {
-  print("test");
+void function test(textToPrint, numberTimesToPrint) {
+  for(count = 0; count < numberTimesToPrint; count++) {
+      print(textToPrint);
+  };
 };
 
 
 print("pol");
-i = 1;
+i = 0;
 do {
-  test();
+  test("bisous", 10);
   i++;
 } while (i < 10);
 a, b = 2, 3;
 print(a);
 print(b);
+print("clarence");
 print("clarence");

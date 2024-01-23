@@ -85,7 +85,7 @@ lex.lex()
 def p_start(p):
     '''start : block'''
     eval_instruction(p[1])
-    printTreeGraph(p[1])
+    # printTreeGraph(p[1])
 
 
 def p_block(p):
@@ -156,7 +156,9 @@ def p_statement_function_declaration(p):
     '''statement : function_declaration'''
     p[0] = p[1]
 
+
 # loops
+    
 def p_statement_while(p):
     '''statement : WHILE LPAREN expression RPAREN LBRACKET block RBRACKET'''
     p[0] = ('while', p[3], p[6])
