@@ -160,6 +160,8 @@ def eval_expression(t):
             else:
                 print("Error: Division by zero")
                 return None
+        elif t[0] == 'isequal':
+            return eval_expression(t[1]) == eval_expression(t[2])
         elif t[0] == 'smaller':
             return eval_expression(t[1]) < eval_expression(t[2])
         elif t[0] == 'greater':

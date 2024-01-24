@@ -4,7 +4,7 @@ from evaluator import eval_instruction
 
 precedence = (
     ('left', 'AND', 'OR'),
-    ('nonassoc', 'INF', 'SUP', 'INFEQ', 'SUPEQ'),
+    ('nonassoc', 'ISEQUAL', 'INF', 'SUP', 'INFEQ', 'SUPEQ'),
     ('left', 'PLUS', 'MINUS'),
     ('left', 'TIMES', 'DIVIDE'),
     ('nonassoc', 'EQUALS'),
@@ -21,7 +21,6 @@ reserved = {
     'for': 'FOR',
     'while': 'WHILE',
     'do': 'DO',
-    'void': 'VOID',
     'function': 'FUNCTION',
     'return': 'RETURN'
 }
@@ -31,7 +30,7 @@ tokens = [
              'PLUS', 'TIMES', 'DIVIDE',
              'LPAREN', 'RPAREN', 'AND',
              'OR', 'SEMI', 'NAME',
-             'EQUALS', 'INF', 'SUP',
+             'EQUALS', 'ISEQUAL', 'INF', 'SUP',
              'INFEQ', 'SUPEQ',
              'COMMENTLINE', 'COMMENTBLOCK', 'STRING',
              'LBRACKET', 'RBRACKET', 'COMMA',
@@ -53,6 +52,7 @@ t_AND = r'\&'
 t_OR = r'\|'
 t_SEMI = r'\;'
 t_EQUALS = r'\='
+t_ISEQUAL = r'\=\='
 t_INF = r'\<'
 t_SUP = r'\>'
 t_INFEQ = r'\<\='
@@ -251,6 +251,9 @@ def p_statement_multiple_assign(p):
     'statement : names_list EQUALS expression_list'
     p[0] = ('multiple_assign', list(zip(p[1], p[3])))
 
+def p_expression_binop_equals(p):
+    'expression : expression ISEQUAL expression'
+    p[0] = ('isequal', p[1], p[3])
 
 def p_expression_binop_inf(p):
     'expression : expression INF expression'
@@ -260,7 +263,6 @@ def p_expression_binop_inf(p):
 def p_expression_binop_sup(p):
     'expression : expression SUP expression'
     p[0] = ('greater', p[1], p[3])
-
 
 def p_expression_binop_infeq(p):
     'expression : expression INFEQ expression'
