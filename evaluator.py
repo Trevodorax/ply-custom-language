@@ -4,16 +4,19 @@ stack = Stack()
 main = {}
 stack.push(main)
 
+
 def add_block(t):
-    while(t[2] != 'empty'):
+    while (t[2] != 'empty'):
         stack.push(t[2])
         t = t[1]
     stack.push(t[1])
+
 
 def run_and_pop_block(depth):
     while stack.size() > depth:
         instruction = stack.pop()
         eval_instruction(instruction)
+
 
 def eval_instruction(t):
     if type(t) == int:
@@ -27,9 +30,9 @@ def eval_instruction(t):
         if t[0] == 'block':
             previousStackSize = stack.size()
             add_block(t)
-            if(stack.size() <= 1):
+            if (stack.size() <= 1):
                 return None
-            
+
             run_and_pop_block(previousStackSize)
         elif t[0] == 'print':
             print_value = eval_expression(t[1])
@@ -37,6 +40,22 @@ def eval_instruction(t):
             return print_value
         elif t[0] == 'assign':
             stack.setVariable(t[1], eval_expression(t[2]))
+        elif t[0] == 'array_decl':
+            array_name = t[1]
+            tab = []
+            for element in t[2]:  # Iterate over each element in the array
+                tab.append(eval_expression(element))
+            stack.setVariable(array_name, tab)  # Initializes an array with default values (e.g., 0)
+        elif t[0] == 'array_assign':
+            array_name = t[1]
+            index = eval_expression(t[2])
+            value = eval_expression(t[3])
+            array = stack.getVariable(array_name)
+            if array is None:
+                print("Array not declared")
+                return
+            array[index] = value
+            stack.setVariable(array_name, array)
         elif t[0] == 'multiple_assign':
             for (name, value) in t[1]:
                 stack.setVariable(name, eval_expression(value))
@@ -110,6 +129,7 @@ def eval_instruction(t):
         print("Unknown expression type:", t)
         return None
 
+
 def eval_expression(t):
     if type(t) == int:
         return t
@@ -145,6 +165,19 @@ def eval_expression(t):
             return eval_expression(t[1]) or eval_expression(t[2])
         elif t[0] == 'get':
             return stack.getVariable(t[1])
+        elif t[0] == 'array_access':
+            array_name = t[1]
+            index = eval_expression(t[2])
+            array = stack.getVariable(array_name)
+            if array is None:
+                print("Array not declared")
+                return None
+            if 0 > index > len(array):
+                print("Index out of bounds error")
+                return None
+
+            return array[index]
+
     else:
         print("Unknown expression type:", t)
         return None

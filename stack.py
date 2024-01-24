@@ -20,13 +20,13 @@ class Stack:
 
     def size(self):
         return len(self.items)
-    
+
     def lastEnv(self):
         for item in reversed(self.items):
             if isinstance(item, dict):
                 return item
         return None
-    
+
     def lastEnv(self, previous_env=None):
         found = previous_env is None
         for item in reversed(self.items):
@@ -35,10 +35,10 @@ class Stack:
             if item is previous_env:
                 found = True
         return None
-    
+
     def setVariable(self, name, value):
         self.lastEnv()[name] = value
-  
+
     def getVariable(self, variable_name):
         for item in reversed(self.items):
             if isinstance(item, dict):
@@ -46,7 +46,7 @@ class Stack:
                     if element == variable_name:
                         return item[element]
         return None
-    
+
     def flush(self):
         while not self.is_empty():
             if isinstance(self.peek(), dict):
