@@ -35,7 +35,9 @@ def eval_instruction(t):
 
             run_and_pop_block(previousStackSize)
         elif t[0] == 'print':
-            print_value = eval_expression(t[1])
+            print_value = ""
+            for element in t[1]:
+                print_value += str(eval_expression(element))
             print("print >", print_value)
             return print_value
         elif t[0] == 'assign':

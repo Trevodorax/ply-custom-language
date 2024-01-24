@@ -206,26 +206,22 @@ def p_statement_assign(p):
 
 def p_statement_array_assign(p):
     'statement : NAME LBRACE expression RBRACE EQUALS expression'
-    # The structure is ('array_assign', array_name, index, value)
-    print("test1", p[1], p[3])
     p[0] = ('array_assign', p[1], p[3], p[6])
 
 
 def p_statement_array_decl(p):
     'statement : NAME LBRACE RBRACE EQUALS LBRACKET expression_list RBRACKET'
-    print("Declare", p[1], p[3])
     p[0] = ('array_decl', p[1], list(p[6]))
 
 
 def p_expression_array_access(p):
     'expression : NAME LBRACE expression RBRACE'
-    print("test3", p[1], p[3])
     p[0] = ('array_access', p[1], p[3])  # ('array_access', array_name, index)
 
 
 def p_statement_expr(p):
-    'statement : PRINT LPAREN expression RPAREN'
-    p[0] = ('print', p[3])
+    'statement : PRINT LPAREN expression_list RPAREN'
+    p[0] = ('print', list(p[3]))
 
 
 def p_statement_add_one(p):
