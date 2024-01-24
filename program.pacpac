@@ -37,3 +37,12 @@ print (1+1, 4, a);
 //    return fib(n-1)+fib(n-2);
 //};
 
+void function test(text) {
+  a = 23;
+  print(text);
+  return 12;
+  print("should not be printed");
+};
+
+a = test("here");
+print(a);

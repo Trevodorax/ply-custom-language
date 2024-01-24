@@ -107,7 +107,9 @@ def p_block(p):
              | block COMMENTLINE
              | block COMMENTBLOCK
              | COMMENTLINE
-             | COMMENTBLOCK'''
+             | COMMENTBLOCK
+             | expression SEMI
+             | block expression SEMI'''
 
     # Handling comments: If the rule is just for a comment, do nothing
     if len(p) == 2 and (p[1] == 'COMMENTLINE' or p[1] == 'COMMENTBLOCK'):
@@ -152,11 +154,9 @@ def p_parameters_nonempty(p):
     else:
         p[0] = [p[1]]
 
-
-def p_statement_function_call(p):
-    'statement : NAME LPAREN arguments RPAREN'
+def p_expression_function_call(p):
+    'expression : NAME LPAREN arguments RPAREN'
     p[0] = ('function_call', p[1], p[3])
-
 
 def p_arguments_empty(p):
     'arguments : '
@@ -178,9 +178,12 @@ def p_statement_function_declaration(p):
 
 
 def p_statement_return(p):
-    '''statement : RETURN'''
-    p[0] = ('return', None)
-
+    '''statement :  RETURN expression 
+                    | RETURN'''
+    if(len(p) == 2):
+        p[0] = ('return', None)
+        return
+    p[0] = ('return', p[2])
 
 # loops
 
