@@ -37,12 +37,12 @@ function fib(n){
     return fib(n-1)+fib(n-2);
 };
 
-function test(text) {
-  a = 23;
-  print(text);
-  return 12;
-  print("should not be printed");
-};
+//function test(text) {
+//  a = 23;
+//  print(text);
+//  return 12;
+//  print("should not be printed");
+//};
 
-a = test("here");
+// a = test("here");
 print(a);
