@@ -1,32 +1,21 @@
+/*
+// array examples
+
 i = 5;
 
 b[] = {i,2,3,4,5,6,7,8,9,10};
 
-print(b[0]);
-
-b[0] = 10;
-
-print(b[0]);
-a = 10;
-
-function prin(a){
-    print(a);
-    if (a>1){
-        prin (a-1);
+function printArray(array, tabSize) {
+    for(i = 0; i < tabSize; i++) {
+        print(array[i]);
     };
 };
 
-prin(a);
+printArray(b, 10);
 
-print (1+1, 4, a);
+*/
 
-function testReturn(){
-    return;
-    print(2);
-};
-
-print(testReturn());
-
+// recursion examples
 function fib(n){
     if (n==0){
         return 0;
@@ -37,12 +26,31 @@ function fib(n){
     return fib(n-1)+fib(n-2);
 };
 
-//function test(text) {
-//  a = 23;
-//  print(text);
-//  return 12;
-//  print("should not be printed");
-//};
+function double(n) {
+    if(n > 4) {
+        return n;
+    };
+    
+    returnValue = double(n + 1);
+    return returnValue;
+};
 
-// a = test("here");
-print(a);
+function voidFn() {
+    print("I won't return anything hehe");
+    return;
+};
+
+print(fib(15));
+print(voidFn());
+
+
+
+// example multiline comment
+// print("testA");
+
+/*
+print("testB");
+print("testC");
+*/
+
+// print("testD");

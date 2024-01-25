@@ -2,7 +2,9 @@ from stack import Stack
 
 stack = Stack()
 main = {}
-stack.push(main)
+stack.push(main) 
+
+RAX = None
 
 
 def add_block(t):
@@ -15,12 +17,12 @@ def add_block(t):
 def run_and_pop_block(depth):
     while stack.size() > depth:
         instruction = stack.pop()
-        return_value = eval_instruction(instruction)
-        if(instruction[0] == 'return'):
-            return return_value
+        eval_instruction(instruction)
 
 
 def eval_instruction(t):
+    global RAX
+
     if type(t) == int:
         return t
     if type(t) == str:
@@ -123,23 +125,32 @@ def eval_instruction(t):
             # execute body
             previousStackSize = stack.size()
             add_block(body)
-            return_value = run_and_pop_block(previousStackSize)
+            run_and_pop_block(previousStackSize)
 
             # remove variables of this function from the stack
             stack.pop()
 
-            return return_value
-        elif t[0] == 'return':
-            return_value = eval_expression(t[1])
+            if(RAX != None):
+                return_value = RAX
+            else:
+                return_value = None
+                
+            RAX = None
 
-            stack.flush()
             return return_value
+
+        elif t[0] == 'return':
+            RAX = eval_expression(t[1])
+            stack.flush()
+            
     else:
         print("Unknown expression type:", t)
         return None
 
 
 def eval_expression(t):
+    global RAX
+
     if type(t) == int:
         return t
     if type(t) == str:
@@ -201,10 +212,17 @@ def eval_expression(t):
             # execute body
             previousStackSize = stack.size()
             add_block(body)
-            return_value = run_and_pop_block(previousStackSize)
+            run_and_pop_block(previousStackSize)
 
             # remove variables of this function from the stack
             stack.pop()
+
+            if(RAX != None):
+                return_value = RAX
+            else:
+                return_value = None
+                
+            RAX = None
 
             return return_value
     else:

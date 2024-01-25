@@ -352,11 +352,12 @@ import ply.yacc as yacc
 yacc.yacc()
 
 s = 'print("No program found");'
-if len(sys.argv) == 1:
-    s = input('calc > ')
-else:
-    file = open(sys.argv[1], "r+")
-    file_content = file.read()
-    s = file_content
+yacc.parse(open("program.pacpac", "r+").read())
+# if len(sys.argv) == 1:
+#     s = input('calc > ')
+# else:
+#     file = open(sys.argv[1], "r+")
+#     file_content = file.read()
+#     s = file_content
 
-yacc.parse(s)
+# yacc.parse(s)
