@@ -2,7 +2,7 @@ from stack import Stack
 
 stack = Stack()
 main = {}
-stack.push(main) 
+stack.push(main)
 
 RAX = None
 
@@ -120,6 +120,7 @@ def eval_instruction(t):
             # create a dict with the variables in params and their values passed in args
             params, body = stack.getVariable(function_name)
             new_env = dict(zip(params, [eval_expression(arg) for arg in args]))
+
             stack.push(new_env)
 
             # execute body
@@ -130,19 +131,21 @@ def eval_instruction(t):
             # remove variables of this function from the stack
             stack.pop()
 
-            if(RAX != None):
+            if (RAX != None):
                 return_value = RAX
             else:
                 return_value = None
-                
+
             RAX = None
 
             return return_value
 
         elif t[0] == 'return':
             RAX = eval_expression(t[1])
+            last_env = stack.lastEnv()
+            print("last_env", last_env)
             stack.flush()
-            
+
     else:
         print("Unknown expression type:", t)
         return None
@@ -207,6 +210,7 @@ def eval_expression(t):
             # create a dict with the variables in params and their values passed in args
             params, body = stack.getVariable(function_name)
             new_env = dict(zip(params, [eval_expression(arg) for arg in args]))
+            #new_env = dict(zip([param for param in params if not param.startswith('&')], [eval_expression(arg) for arg in args]))
             stack.push(new_env)
 
             # execute body
@@ -217,11 +221,11 @@ def eval_expression(t):
             # remove variables of this function from the stack
             stack.pop()
 
-            if(RAX != None):
+            if (RAX != None):
                 return_value = RAX
             else:
                 return_value = None
-                
+
             RAX = None
 
             return return_value

@@ -1,4 +1,4 @@
-/*
+
 // array examples
 
 i = 5;
@@ -6,51 +6,17 @@ i = 5;
 b[] = {i,2,3,4,5,6,7,8,9,10};
 
 function printArray(array, tabSize) {
+    print(tabSize);
     for(i = 0; i < tabSize; i++) {
         print(array[i]);
     };
-};
-
-printArray(b, 10);
-
-*/
-
-// recursion examples
-function fib(n){
-    if (n==0){
-        return 0;
-    };
-    if (n==1){
-        return 1;
-    };
-    return fib(n-1)+fib(n-2);
-};
-
-function double(n) {
-    if(n > 4) {
-        return n;
-    };
-    
-    returnValue = double(n + 1);
-    return returnValue;
-};
-
-function voidFn() {
-    print("I won't return anything hehe");
+    tabSize = 0;
     return;
 };
 
-print(fib(15));
-print(voidFn());
+i = 10;
+
+printArray(b, #i);
+print(i);
 
 
-
-// example multiline comment
-// print("testA");
-
-/*
-print("testB");
-print("testC");
-*/
-
-// print("testD");

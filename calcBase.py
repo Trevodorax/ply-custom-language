@@ -34,7 +34,7 @@ tokens = [
              'INFEQ', 'SUPEQ',
              'COMMENTLINE', 'COMMENTBLOCK', 'STRING',
              'LBRACKET', 'RBRACKET', 'COMMA',
-             'LBRACE', 'RBRACE'
+             'LBRACE', 'RBRACE', 'ESPER'
          ] + list(reserved.values())
 
 # Tokens
@@ -61,6 +61,7 @@ t_COMMENTLINE = r'\/\/.+'
 t_COMMENTBLOCK = r'\/\*[\s\S]*?\*\/'
 t_STRING = r'\".*\"'
 t_COMMA = r','
+t_ESPER = r'\#'
 
 
 def t_NUMBER(t):
@@ -165,9 +166,15 @@ def p_arguments_empty(p):
 
 def p_arguments_nonempty(p):
     '''arguments : arguments COMMA expression
-                 | expression'''
+                 | expression
+                 | arguments COMMA ESPER expression
+                 | ESPER expression'''
     if len(p) == 4:
         p[0] = p[1] + [p[3]]
+    elif len(p) == 5:
+        p[0] = p[1] + ["&".join(p[4])]
+    elif len(p) == 3:
+        p[0] = ["&".join(p[2])]
     else:
         p[0] = [p[1]]
 
