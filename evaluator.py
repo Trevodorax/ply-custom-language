@@ -5,6 +5,7 @@ main = {}
 stack.push(main)
 
 RAX = None
+variablesToReassign = []
 
 
 def add_block(t):
@@ -21,7 +22,7 @@ def run_and_pop_block(depth):
 
 
 def eval_instruction(t):
-    global RAX
+    global RAX, variablesToReassign
 
     if type(t) == int:
         return t
@@ -119,7 +120,14 @@ def eval_instruction(t):
 
             # create a dict with the variables in params and their values passed in args
             params, body = stack.getVariable(function_name)
-            new_env = dict(zip(params, [eval_expression(arg) for arg in args]))
+            new_args = []
+            for i in range(len(args)):
+                if args[i][1][0] == '#':
+                    variablesToReassign += [(params[i], args[i][1])]
+                    new_args += [eval_expression(('get', args[i][1][1:]))]
+                else:
+                    new_args += [eval_expression(args[i])]
+            new_env = dict(zip(params, new_args))
 
             stack.push(new_env)
 
@@ -127,6 +135,11 @@ def eval_instruction(t):
             previousStackSize = stack.size()
             add_block(body)
             run_and_pop_block(previousStackSize)
+
+            # reassign referenced arguments
+            if variablesToReassign:
+                for variableToReassign in variablesToReassign:
+                    stack.items[0][variableToReassign[1][1:]] = stack.getVariable(variableToReassign[0])
 
             # remove variables of this function from the stack
             stack.pop()
@@ -137,6 +150,7 @@ def eval_instruction(t):
                 return_value = None
 
             RAX = None
+            variablesToReassign = []
 
             return return_value
 
@@ -152,7 +166,7 @@ def eval_instruction(t):
 
 
 def eval_expression(t):
-    global RAX
+    global RAX, variablesToReassign
 
     if type(t) == int:
         return t
@@ -209,14 +223,26 @@ def eval_expression(t):
 
             # create a dict with the variables in params and their values passed in args
             params, body = stack.getVariable(function_name)
-            new_env = dict(zip(params, [eval_expression(arg) for arg in args]))
-            #new_env = dict(zip([param for param in params if not param.startswith('&')], [eval_expression(arg) for arg in args]))
+            new_args = []
+            for i in range(len(args)):
+                if args[i][1][0] == '#':
+                    variablesToReassign += [(params[i], args[i][1])]
+                    new_args += [eval_expression(('get', args[i][1][1:]))]
+                else:
+                    new_args += [eval_expression(args[i])]
+            new_env = dict(zip(params, new_args))
+
             stack.push(new_env)
 
             # execute body
             previousStackSize = stack.size()
             add_block(body)
             run_and_pop_block(previousStackSize)
+
+            # reassign referenced arguments
+            if variablesToReassign:
+                for variableToReassign in variablesToReassign:
+                    stack.items[0][variableToReassign[1][1:]] = stack.getVariable(variableToReassign[0])
 
             # remove variables of this function from the stack
             stack.pop()
@@ -227,6 +253,7 @@ def eval_expression(t):
                 return_value = None
 
             RAX = None
+            variablesToReassign = []
 
             return return_value
     else:

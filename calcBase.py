@@ -172,9 +172,9 @@ def p_arguments_nonempty(p):
     if len(p) == 4:
         p[0] = p[1] + [p[3]]
     elif len(p) == 5:
-        p[0] = p[1] + ["&".join(p[4])]
+        p[0] = p[1] + [('get', '#' + p[4][1])]
     elif len(p) == 3:
-        p[0] = ["&".join(p[2])]
+        p[0] = [('get', '#' + p[2][1])]
     else:
         p[0] = [p[1]]
 
