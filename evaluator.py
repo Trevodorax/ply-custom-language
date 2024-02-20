@@ -257,5 +257,4 @@ def eval_expression(t):
 
             return return_value
     else:
-        print("Unknown expression type:", t)
         return None
